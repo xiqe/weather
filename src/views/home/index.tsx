@@ -5,7 +5,8 @@ import InputSearchLocal from '@/components/inputSearchLocal/index'
 // import { decrement, increment } from '@/store/weatherUpdate'
 import { weatherApi, loaclApi } from '@/api/index'
 import { weathercodeToContext, dailyListFormat } from '@/utils/format'
-import './home.less'
+// import debounce from '@/utils/debounce'
+import './index.less'
 
 function Home() {
   //   const count = useSelector((state: any) => state.counter.value)
