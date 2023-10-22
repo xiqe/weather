@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/dist/weather/vite.svg" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <title>Weather Api Demo</title>
+    <script type="module" crossorigin src="/dist/weather/assets/index-5d88350f.js"></script>
+    <link rel="stylesheet" href="/dist/weather/assets/index-e7de649f.css">
+  </head>
+  <body>
+    <div id="root"></div>
+    
+    <script>
+      const setHtmlFontSize = () => {
+        const htmlDom = document.getElementsByTagName('html')[0]
+        let htmlWidth =
+          document.documentElement.clientWidth || document.body.clientWidth
+        if (htmlWidth >= 750) {
+          htmlWidth = 750
+        }
+        if (htmlWidth <= 320) {
+          htmlWidth = 320
+        }
+        // 我们想让1rem = 10px 设计搞宽度是375， 那么让实际的页面宽度 / 37.5 就可以得到 1rem = 10px 的换算关系来
+        htmlDom.style.fontSize = `${htmlWidth / 37.5}px`
+      }
+      window.onresize = setHtmlFontSize
+      setHtmlFontSize()
+    </script>
+  </body>
+</html>
