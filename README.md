@@ -1,6 +1,7 @@
 # Weather App Demo
 
 使用 vite 和 react-ts template 进行开发的应用小Demo
+
 通过获取当前地理位置以及搜索城市来获取所需地区的天气情况
 
 ## Features
