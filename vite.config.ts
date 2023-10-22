@@ -5,6 +5,14 @@ import path from 'path'
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
+  css: {
+    // 预处理器配置项
+    preprocessorOptions: {
+      less: {
+        math: 'always'
+      }
+    }
+  },
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src')

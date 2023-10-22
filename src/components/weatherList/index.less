@@ -1,0 +1,35 @@
+.weather_week__list {
+  border-radius: 1rem;
+  background: rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+  padding: 0 1rem;
+  text-align: left;
+  li {
+    padding: 0 1rem;
+    line-height: 4rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    &:last-child {
+      border: 0 none;
+    }
+    &.tit {
+      line-height: 3.6rem;
+      font-size: 1rem;
+    }
+    display: flex;
+    span {
+      &.date {
+        flex: 6rem;
+      }
+      &.temp_text {
+        flex: 10rem;
+        overflow: hidden;
+        height: 4rem;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+    }
+    i {
+      flex: 0.7rem;
+    }
+  }
+}
