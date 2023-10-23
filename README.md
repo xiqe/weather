@@ -1,6 +1,6 @@
 # Weather App Demo
 
-使用 vite 和 react-ts 进行开发的天气应用小 Demo
+使用 vite 和 react-ts 进行开发的天气应用小 Demo [点击此处](https://r18.fun/weather/dist/)
 
 实现功能：
 
@@ -70,3 +70,4 @@ npm run dev
    - component 的抽离和组件化调用
 8. 优化模块
    - 编写防抖函数对 input 进行防抖处理
+9. vite.config.ts 匹配 base 路径，进行`github pages`部署
