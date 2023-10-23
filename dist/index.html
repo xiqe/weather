@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/weather/dist/vite.svg" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <title>Weather Api Demo</title>
+    <script type="module" crossorigin src="/weather/dist/assets/index-de89be3a.js"></script>
+    <link rel="stylesheet" href="/weather/dist/assets/index-bd154b52.css">
+  </head>
+  <body>
+    <div id="root"></div>
+    
+    <script>
+      // rem自适应适配
+      function setHtmlFontSize() {
+        const htmlDom = document.documentElement
+        let htmlWidth =
+          window.innerWidth ||
+          document.documentElement.clientWidth ||
+          document.body.clientWidth
+        htmlWidth = Math.min(750, Math.max(320, htmlWidth))
+        htmlDom.style.fontSize = `${htmlWidth / 37.5}px`
+      }
+
+      document.addEventListener('DOMContentLoaded', () => {
+        setHtmlFontSize()
+      })
+
+      window.addEventListener('resize', () => {
+        setHtmlFontSize()
+      })
+    </script>
+  </body>
+</html>

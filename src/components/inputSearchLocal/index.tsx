@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { loaclApi } from '@/api/index'
+import useDebounce from '@/utils/debounce'
 import './index.less'
 
 interface InputSearchLocalProps {
@@ -17,17 +18,22 @@ const InputSearchLocal: React.FC<InputSearchLocalProps> = ({
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = e.target.value
     setSearchText(inputValue)
-    inputValue.length > 2 ? getlocalData(inputValue) : setSuggestions([])
+    inputValue.length > 2 ? debouncedFunction(inputValue) : setSuggestions([])
   }
 
-  const getlocalData = (keyword: string) => {
-    loaclApi(keyword).then((res: any) => {
+  const getlocalData = async (keyword: string) => {
+    try {
+      const res = await loaclApi(keyword)
       const { status, data } = res
       if (status == 200) {
         data.results ? setSuggestions(data.results) : setSuggestions([])
       }
-    })
+    } catch (error: any) {
+      alert(`获取城市数据失败: ${error.message}`)
+    }
   }
+
+  const debouncedFunction = useDebounce(getlocalData, 300)
 
   const handleSuggestionClick = (obj: any) => {
     setSearchText(obj.name)

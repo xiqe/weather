@@ -43,14 +43,17 @@ function Home() {
     getlocal()
   }, [])
 
-  const getWeatherData = (lat: any, long: any) => {
-    weatherApi(lat, long).then((res: any) => {
+  const getWeatherData = async (lat: any, long: any) => {
+    try {
+      const res = await weatherApi(lat, long)
       const { status, data } = res
-      if (status == 200) {
+      if (status === 200) {
         setCurWeather(data.current_weather)
         setDailyList(dailyListFormat(data.daily))
       }
-    })
+    } catch (error: any) {
+      alert(`获取天气数据失败: ${error.message}`)
+    }
   }
 
   const handSuggestionClick = (keyword: string, lat: number, long: number) => {
