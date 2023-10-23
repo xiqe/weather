@@ -45,7 +45,8 @@ npm run dev
 │   ├── components                          Components source code
 │   ├── router                              React-router source code
 │   ├── store                               Redux source code
-│   └── utils                               Tool function source code
+│   ├── utils                               Tool function source code
+│   └── views                               Pages source code
 └── public                                  Static assets
 ```
 
