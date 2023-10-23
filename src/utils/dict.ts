@@ -1,4 +1,9 @@
-const weather_type = {
+type WeatherCode = {
+  w_type: string;
+  icon: string;
+};
+
+const weatherCodeMap: Record<number, WeatherCode> = {
   // 晴
   0: { w_type: 'Clear sky', icon: 'icon-weather_0' },
   // 主要晴朗，部分多云，阴天
@@ -45,4 +50,4 @@ const weather_type = {
   }
 }
 
-export default weather_type
+export default weatherCodeMap

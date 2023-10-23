@@ -1,49 +1,23 @@
-import { useEffect, useState } from 'react'
-// import { useSelector, useDispatch } from 'react-redux'
-import WeatherList from '@/components/weatherList/index'
-import InputSearchLocal from '@/components/inputSearchLocal/index'
-// import { decrement, increment } from '@/store/weatherUpdate'
-import { weatherApi } from '@/api/index'
-import { weathercodeToContext, dailyListFormat } from '@/utils/format'
-// import debounce from '@/utils/debounce'
-import './index.less'
+import { useEffect, useState } from 'react';
+import WeatherList from '@/components/weatherList/index';
+import InputSearchLocal from '@/components/inputSearchLocal/index';
+import { weatherApi } from '@/api/index';
+import { weathercodeToContext, dailyListFormat } from '@/utils/format';
+import './index.less';
+interface IWeather {
+  temperature: number;
+  weathercode: number;
+}
 
-function Home() {
-  //   const count = useSelector((state: any) => state.counter.value)
-  //   const dispatch = useDispatch()
-
-  const [curWeather, setCurWeather] = useState<{
-    temperature: number
-    weathercode: number
-  }>({
+const Home: React.FC = () => {
+  const [curWeather, setCurWeather] = useState<IWeather>({
     temperature: 0,
-    weathercode: 1
-  })
+    weathercode: 1,
+  });
+  const [dailyList, setDailyList] = useState<any[]>([]);
+  const [localText, setLocalText] = useState<string>('');
 
-  const [dailyList, setDailyList] = useState<any[]>([])
-  const [localText, setLocalText] = useState('')
-
-  const getlocal = () => {
-    if ('geolocation' in navigator) {
-      navigator.geolocation.getCurrentPosition(
-        (pos: any) => {
-          getWeatherData(pos.coords.latitude, pos.coords.longitude)
-          setLocalText('我的位置')
-        },
-        (error) => {
-          alert(`获取位置失败: ${error.message}`)
-        }
-      )
-    } else {
-      alert('浏览器不支持Geolocation API')
-    }
-  }
-
-  useEffect(() => {
-    getlocal()
-  }, [])
-
-  const getWeatherData = async (lat: any, long: any): Promise<void> => {
+  const getWeatherData = async (lat: number, long: number): Promise<void> => {
     try {
       const res = await weatherApi(lat, long)
       const { status, data } = res
@@ -51,10 +25,30 @@ function Home() {
         setCurWeather(data.current_weather)
         setDailyList(dailyListFormat(data.daily))
       }
-    } catch (error: any) {
-      alert(`获取天气数据失败: ${error.message}`)
+    } catch (error) {
+      alert(`获取天气数据失败: ${(error as Error).message}`)
     }
-  }
+  };
+
+  const getlocal = () => {
+    if ('geolocation' in navigator) {
+      navigator.geolocation.getCurrentPosition(
+        pos => {
+          getWeatherData(pos.coords.latitude, pos.coords.longitude);
+          setLocalText('我的位置');
+        },
+        error => {
+          alert(`获取位置失败: ${error.message}`);
+        }
+      );
+    } else {
+      alert('浏览器不支持Geolocation API');
+    }
+  };
+
+  useEffect(() => {
+    getlocal();
+  }, []);
 
   const handSuggestionClick = (
     keyword: string,
@@ -64,6 +58,9 @@ function Home() {
     setLocalText(keyword)
     getWeatherData(lat, long)
   }
+
+  const currentWeatherContext = weathercodeToContext(curWeather.weathercode);
+  const { icon, w_type } = currentWeatherContext || {};
 
   return (
     <div className="app_wrapper-home">
@@ -78,33 +75,15 @@ function Home() {
         <div className="cur_temp">
           <div className="col">{curWeather.temperature}°C</div>
           <div className="col cur_temp-type">
-            <i
-              className={`iconfont ${
-                weathercodeToContext(curWeather.weathercode).icon
-              }`}
-            ></i>
+          {icon && <i className={`iconfont ${icon}`}></i>}
           </div>
         </div>
         <div className="cur_temp-text">
-          {weathercodeToContext(curWeather.weathercode).w_type}
+        {w_type}
         </div>
       </div>
 
       <WeatherList dailyList={dailyList} />
-
-      {/* <button
-        aria-label="Increment value"
-        onClick={() => dispatch(increment())}
-      >
-        Increment
-      </button>
-      <span>{count}</span>
-      <button
-        aria-label="Decrement value"
-        onClick={() => dispatch(decrement())}
-      >
-        Decrement
-      </button> */}
     </div>
   )
 }

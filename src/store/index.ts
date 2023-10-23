@@ -1,8 +1,9 @@
-import { configureStore } from '@reduxjs/toolkit'
-import counterReducer from '@/store/weatherUpdate'
+import { configureStore } from '@reduxjs/toolkit';
 
-export default configureStore({
-  reducer: {
-    counter: counterReducer
-  }
-})
+const rootReducer = (state = {}) => state;
+
+const store = configureStore({
+  reducer: rootReducer
+});
+
+export default store;

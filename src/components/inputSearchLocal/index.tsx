@@ -8,11 +8,13 @@ interface InputSearchLocalProps {
   onLocalClick: () => void
 }
 
+const DEBOUNCE_DELAY = 300;
+
 const InputSearchLocal: React.FC<InputSearchLocalProps> = ({
   onSuggestionClick,
   onLocalClick
 }) => {
-  const [searchText, setSearchText] = useState('')
+  const [searchText, setSearchText] = useState<string>('')
   const [suggestions, setSuggestions] = useState<any[]>([])
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -26,14 +28,14 @@ const InputSearchLocal: React.FC<InputSearchLocalProps> = ({
       const res = await loaclApi(keyword)
       const { status, data } = res
       if (status == 200) {
-        data.results ? setSuggestions(data.results) : setSuggestions([])
+        setSuggestions(data.results || [])
       }
     } catch (error: any) {
       alert(`获取城市数据失败: ${error.message}`)
     }
   }
 
-  const debouncedFunction = useDebounce(getlocalData, 300)
+  const debouncedFunction = useDebounce(getlocalData, DEBOUNCE_DELAY)
 
   const handleSuggestionClick = (obj: any) => {
     setSearchText(obj.name)

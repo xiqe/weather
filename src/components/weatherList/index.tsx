@@ -1,11 +1,10 @@
 import { weathercodeToContext } from '@/utils/format'
 import './index.less'
-
 interface Props {
   dailyList: Array<any>
 }
 
-const WeatherList = ({ dailyList }: Props) => {
+const WeatherList: React.FC<Props> = ({dailyList}) => {
   return (
     <ul className="weather_week__list">
       <li className="tit">Recently 7days</li>

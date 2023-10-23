@@ -1,8 +1,6 @@
-// src/components/Details.tsx
-
 import React from 'react'
 
-function Details() {
+const Details: React.FC = () => {
   return (
     <div>
       <h1>Details Page</h1>

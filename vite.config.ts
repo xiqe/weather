@@ -3,8 +3,9 @@ import react from '@vitejs/plugin-react'
 import path from 'path'
 
 // https://vitejs.dev/config/
+
 export default defineConfig({
-  base: '/weather/dist/',
+  base: process.env.NODE_ENV == 'production'?'/weather/dist/':'',
   plugins: [react()],
   css: {
     // 预处理器配置项

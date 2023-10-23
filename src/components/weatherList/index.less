@@ -8,6 +8,7 @@
     padding: 0 1rem;
     line-height: 4rem;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    font-size: 1.4rem;
     &:last-child {
       border: 0 none;
     }
@@ -19,6 +20,8 @@
     span {
       &.date {
         flex: 6rem;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
       &.temp_text {
         flex: 10rem;
