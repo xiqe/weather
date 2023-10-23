@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import WeatherList from '@/components/weatherList/index'
 import InputSearchLocal from '@/components/inputSearchLocal/index'
 // import { decrement, increment } from '@/store/weatherUpdate'
-import { weatherApi, loaclApi } from '@/api/index'
+import { weatherApi } from '@/api/index'
 import { weathercodeToContext, dailyListFormat } from '@/utils/format'
 // import debounce from '@/utils/debounce'
 import './index.less'
@@ -21,12 +21,9 @@ function Home() {
   })
 
   const [dailyList, setDailyList] = useState<any[]>([])
-  const [searchText, setSearchText] = useState('')
-  const [suggestions, setSuggestions] = useState<any[]>([])
   const [localText, setLocalText] = useState('')
 
   const getlocal = () => {
-    setSearchText('')
     if ('geolocation' in navigator) {
       navigator.geolocation.getCurrentPosition(
         (pos: any) => {
@@ -56,35 +53,15 @@ function Home() {
     })
   }
 
-  const getlocalData = (keyword: string) => {
-    loaclApi(keyword).then((res: any) => {
-      const { status, data } = res
-      if (status == 200) {
-        data.results ? setSuggestions(data.results) : setSuggestions([])
-      }
-    })
-  }
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const inputValue = e.target.value
-    setSearchText(inputValue)
-    inputValue.length > 2 ? getlocalData(inputValue) : setSuggestions([])
-  }
-
-  const handleSuggestionClick = (obj: any) => {
-    setSearchText(obj.name)
-    setLocalText(`${obj.name},${obj.country}`)
-    setSuggestions([])
-    getWeatherData(obj.latitude, obj.longitude)
+  const handSuggestionClick = (keyword: string, lat: number, long: number) => {
+    setLocalText(keyword)
+    getWeatherData(lat, long)
   }
 
   return (
     <div className="app_wrapper-home">
       <InputSearchLocal
-        searchText={searchText}
-        suggestions={suggestions}
-        onInputChange={handleInputChange}
-        onSuggestionClick={handleSuggestionClick}
+        onSuggestionClick={handSuggestionClick}
         onLocalClick={getlocal}
       />
 
