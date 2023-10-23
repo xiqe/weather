@@ -43,7 +43,7 @@ function Home() {
     getlocal()
   }, [])
 
-  const getWeatherData = async (lat: any, long: any) => {
+  const getWeatherData = async (lat: any, long: any): Promise<void> => {
     try {
       const res = await weatherApi(lat, long)
       const { status, data } = res
@@ -56,7 +56,11 @@ function Home() {
     }
   }
 
-  const handSuggestionClick = (keyword: string, lat: number, long: number) => {
+  const handSuggestionClick = (
+    keyword: string,
+    lat: number,
+    long: number
+  ): void => {
     setLocalText(keyword)
     getWeatherData(lat, long)
   }

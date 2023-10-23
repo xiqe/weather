@@ -21,7 +21,7 @@ const InputSearchLocal: React.FC<InputSearchLocalProps> = ({
     inputValue.length > 2 ? debouncedFunction(inputValue) : setSuggestions([])
   }
 
-  const getlocalData = async (keyword: string) => {
+  const getlocalData = async (keyword: string): Promise<void> => {
     try {
       const res = await loaclApi(keyword)
       const { status, data } = res
