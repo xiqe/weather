@@ -1,9 +1,8 @@
-import { configureStore } from '@reduxjs/toolkit';
+import { createContext, useContext } from 'react'
+import counterStore from './modules/counter'
+import todoListStore from './modules/todolist'
 
-const rootReducer = (state = {}) => state;
+const context = createContext({ counterStore, todoListStore })
+const useStore = () => useContext(context)
 
-const store = configureStore({
-  reducer: rootReducer
-});
-
-export default store;
+export { useStore }

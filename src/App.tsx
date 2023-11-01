@@ -1,17 +1,12 @@
-import { HashRouter as Router } from 'react-router-dom';
-import { Provider } from 'react-redux';
-import RoutesComponent from '@/router';
-import store from '@/store/index'
+import { HashRouter as Router } from 'react-router-dom'
+import RoutesComponent from '@/router'
 
 function App() {
   return (
-    <Provider store={store}>
-      <Router>
-        <RoutesComponent />
-      </Router>
-    </Provider>
-  );
+    <Router>
+      <RoutesComponent />
+    </Router>
+  )
 }
 
-export default App;
-
+export default App

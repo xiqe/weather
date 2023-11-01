@@ -5,7 +5,7 @@ import path from 'path'
 // https://vitejs.dev/config/
 
 export default defineConfig({
-  base: process.env.NODE_ENV == 'production'?'/weather/dist/':'',
+  base: process.env.NODE_ENV == 'production' ? '/weather/dist/' : '',
   plugins: [react()],
   css: {
     // 预处理器配置项
