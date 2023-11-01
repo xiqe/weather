@@ -3,6 +3,8 @@ import WeatherList from '@/components/weatherList/index'
 import InputSearchLocal from '@/components/inputSearchLocal/index'
 import { weatherApi } from '@/api/index'
 import { weathercodeToContext, dailyListFormat } from '@/utils/format'
+import { observer } from 'mobx-react'
+import { useStore } from '@/store/index'
 import './index.less'
 interface IWeather {
   temperature: number
@@ -10,6 +12,8 @@ interface IWeather {
 }
 
 const Home: React.FC = () => {
+  const { count } = useStore().counterStore
+  const { list } = useStore().todoListStore
   const [curWeather, setCurWeather] = useState<IWeather>({
     temperature: 0,
     weathercode: 1
@@ -68,7 +72,6 @@ const Home: React.FC = () => {
         onSuggestionClick={handSuggestionClick}
         onLocalClick={getlocal}
       />
-
       <div className="weather_info">
         <div className="local">{localText}</div>
 
@@ -80,10 +83,19 @@ const Home: React.FC = () => {
         </div>
         <div className="cur_temp-text">{w_type}</div>
       </div>
-
       <WeatherList dailyList={dailyList} />
+      {/* <h2>count:{count}</h2>
+      <ul>
+        {list.map((x) => {
+          return (
+            <li key={x.key}>
+              {x.key}-{x.title}
+            </li>
+          )
+        })}
+      </ul> */}
     </div>
   )
 }
 
-export default Home
+export default observer(Home)

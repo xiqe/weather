@@ -11,7 +11,7 @@ export class TodoListStore {
     makeAutoObservable(this)
   }
 
-  insertTodoList(item: any) {
+  insertTodoList = (item: any) => {
     this.list.push(item)
   }
 }
